@@ -42,7 +42,7 @@ function showUserCard() {
 
             userImage.src = (data.avatar_url === undefined) ? '' : data.avatar_url;
             pElement.textContent = checkNameLocation(data)
-
+            pElement.style="font-size: 1.2em"
             divElement.appendChild(userImage)
             divElement.appendChild(pElement)
             let mainSection =document.getElementById('main_section')
