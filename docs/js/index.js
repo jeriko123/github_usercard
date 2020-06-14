@@ -1,51 +1,81 @@
-const element = document.getElementById('input')
-const button = document.querySelector('button')
-
-let divElement = document.createElement('div')
-divElement.className = 'user_card'
-let userImage = document.createElement('img')
-userImage.className = 'user_card__image'
-let pElement = document.createElement('p');
-pElement.className = "user_card__description"
-let searchValue;
-
-
-//Url request
+/* Github User request  */
 function getUserInfo(user) {
     return fetch(`https://api.github.com/users/${user}`, {
-            method: 'GET',
-            Authorization: "token e8fe74c4ecefd9e5dda2f2bfdb668d4c78229b34"
+            method: 'GET'
         })
         .then((response) => {
             return response.json();
         })
         .then((data) => {
             return data
-        });
+        })
+        .catch(err => console.log(err));
 }
 
-element.oninput = (value) => {
-    updateValue(value)
+/* Check name, location available */
+checkNameLocation = info => {
+    console.log(info);
+    if (info.name === null && info.location == null) {
+        return ''
+    } else if (info.name === null) {
+        `location: ${info.location}`
+    } else if (info.location === null) {
+        `name: ${info.name}`
+    } else if (info.name === undefined || info.location === undefined) {
+        return 'User doesn\'t exist'
+    } else {
+        return `name: ${info.name} location: ${info.location}`
+    }
 }
 
-function updateValue(e) {
-    searchValue = e.target.value
-
-}
-
-button.onclick = () => {
-    showValue()
-}
-
-function showValue() {
+/* Card component */
+function showUserCard() {
     console.log(searchValue)
     getUserInfo(searchValue)
         .then((data) => {
-            console.log(data);
-            userImage.src = data.avatar_url
-            pElement.textContent = `name: ${data.name} location: ${data.location}`
+            let divElement = document.createElement('div')
+            divElement.className = 'user_card'
+            let userImage = document.createElement('img')
+            userImage.className = 'user_card__image'
+            let pElement = document.createElement('p');
+            pElement.className = "user_card__description"
+
+            userImage.src = (data.avatar_url === undefined) ? '' : data.avatar_url;
+            pElement.textContent = checkNameLocation(data)
+
             divElement.appendChild(userImage)
             divElement.appendChild(pElement)
-            document.getElementById('main_section').appendChild(divElement)
+            let mainSection =document.getElementById('main_section')
+            mainSection.insertBefore(divElement, mainSection.firstChild)
         });
+}
+
+const userInput = document.getElementById('input')
+userInput.oninput = (value) => {
+    updateValue(value)
+}
+
+let searchValue;
+
+function updateValue(e) {
+    searchValue = e.target.value
+}
+
+const goButton = document.querySelector('.go')
+const clearButton = document.querySelector('.clear')
+goButton.onclick = () => {
+    showUserCard()
+    clearButton.style.display = "inline";
+}
+
+clearButton.onclick =() => {
+    clearCard()
+}
+
+function clearCard() {
+    let allCards = document.getElementById("main_section")
+    while (allCards.firstChild) {
+        allCards.removeChild(allCards.firstChild);
+      }
+    clearButton.style.display = "none";
 }

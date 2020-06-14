@@ -10,6 +10,21 @@
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
  }
 
+ #input {
+
+   align-content: flex-start;
+   font-weight: bold;
+   font-size: 2em;
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ }
+
+ #main_section {
+   display: flex;
+   flex-flow: column wrap;
+   align-items: center;
+   justify-content: center;
+ }
+
  :root {
    --text: #5362F6;
    /* Blue */
@@ -61,19 +76,17 @@
 
  }
 
+ .clear {
+   border-radius: 15%;
+   display: none;
+ }
+
  .main__search span:nth-child(2n) {
    color: #ED625C;
    text-shadow: textShadow(0.25, 6, #F2A063);
    animation-delay: 0.3s;
  }
 
- #input {
-
-   align-content: flex-start;
-   font-weight: bold;
-   font-size: 2em;
-   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
- }
 
  @keyframes scatter {
    0% {
@@ -89,16 +102,10 @@
    }
  }
 
- #main_section {
-   display: flex;
-   flex-flow: column wrap;
-   align-items: center;
-   justify-content: center;
- }
 
  .user_card {
    width: 250px;
-   margin-top: 50px;
+   margin-top: 15px;
    border: 1px solid black;
    border-radius: 4px;
    background-color: rgb(255, 255, 255);
