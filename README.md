@@ -1,3 +1,3 @@
 github users card 
 
-[test](https://ahuramazda777.github.io/github_usercard/)
+[test](https://jeriko123.github.io/github_usercard/)
